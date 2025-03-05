@@ -1,0 +1,197 @@
+{
+    "name": "mapbender/mapbender-starter",
+    "description": "Mapbender",
+    "type": "project",
+    "license": "MIT",
+    "homepage": "https://www.mapbender.org",
+    "support": {
+        "email":        "mapbender@osgeo.org",
+        "issues":       "https://github.com/mapbender/mapbender/issues",
+        "source":       "https://github.com/mapbender/mapbender-starter",
+        "docs":         "https://doc.mapbender.org/",
+        "twitter":      "https://twitter.com/mapbender",
+        "user-list":    "https://lists.osgeo.org/pipermail/mapbender_users/"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "bin/",
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "dama/doctrine-test-bundle": "^7.3",
+        "phpunit/phpunit": "^10",
+        "symfony/browser-kit": "^6.4",
+        "symfony/debug-bundle": "^6.4",
+        "symfony/web-profiler-bundle": "^6.4"
+    },
+    "require": {
+        "php": ">=8.1",
+        "components/font-awesome": "^6.0",
+        "doctrine/dbal": "^3",
+        "lexik/jwt-authentication-bundle": "^2",
+        "mapbender/digitizer": "^2",
+        "mapbender/mapbender": "^4.1",
+        "mnsami/composer-custom-directory-installer": "^1 || ^2",
+        "nelmio/api-doc-bundle": "^4.34",
+        "proj4js/proj4js": "^2.4",
+        "select2/select2": "^4.0",
+        "symfony/flex": "*",
+        "wheregroup/cookieconsent": "^3"
+    },
+    "replace": {
+        "robloach/component-installer": "^0.2"
+    },
+    "conflict": {
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@composer dump-autoload",
+            "ComposerBootstrap::clearCache",
+            "@copy-bootstrap",
+            "@copy-jqueryui"
+        ],
+        "post-update-cmd": [
+            "@post-install-cmd"
+        ],
+        "copy-bootstrap": [
+            "rm -rf public/components/bootstrap",
+            "cp -R vendor/twbs/bootstrap/dist public/components/bootstrap"
+        ],
+        "copy-bootstrap-windows": [
+            "if exist public\\components\\bootstrap rmdir /s /q public\\components\\bootstrap",
+            "xcopy vendor\\twbs\\bootstrap\\dist public\\components\\bootstrap /e /i /q /y"
+        ],
+        "copy-jqueryui": [
+            "rm -rf public/components/jquery-ui",
+            "cp -R vendor/jquery/jquery-ui/dist public/components/jquery-ui"
+        ],
+        "copy-jqueryui-windows": [
+            "if exist public\\components\\jquery-ui rmdir /s /q public\\components\\jquery-ui",
+            "xcopy vendor\\jquery\\jquery-ui\\dist public\\components\\jquery-ui /e /i /q /y"
+        ],
+        "update-assets":[
+            "ComposerBootstrap::installAssets",
+            "ComponentMirror::postAutoloadDump",
+            "@copy-bootstrap",
+            "@copy-jqueryui"
+        ],
+        "post-autoload-dump": [
+            "ComponentMirror::postAutoloadDump"
+        ],
+        "bootstrap-database": [
+            "ComposerBootstrap::bootstrapDatabase"
+        ],
+        "clean": [
+            "ComposerBootstrap::clearCache"
+        ],
+        "version": [
+            "ComposerBootstrap::displayVersion"
+        ],
+        "project-name": [
+            "ComposerBootstrap::displayProjectName"
+        ],
+        "init-example": [
+            "ComposerBootstrap::checkConfiguration"
+        ],
+        "reimport-example-apps": [
+            "ComposerBootstrap::reimportExampleApps"
+        ],
+        "drop-and-rebuild-database": [
+            "ComposerBootstrap::rebuildDatabase"
+        ],
+        "install-hard-copy-assets": [
+            "ComposerBootstrap::installHardCopyAssets",
+            "@copy-bootstrap",
+            "@copy-jqueryui"
+        ],
+        "install-sym-link-assets": [
+            "ComposerBootstrap::installSymLinkAssets",
+            "@copy-bootstrap",
+            "@copy-jqueryui"
+        ],
+        "dist":[
+            "ComposerBootstrap::distribute"
+        ],
+        "build": [
+            "ComposerBootstrap::distribute",
+            "ComposerBootstrap::build"
+        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        }
+    },
+    "scripts-descriptions": {
+        "bootstrap-database": "Reinitializes database schema and contents after connection configuration change"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "component-dir": "public/components",
+        "component-baseurl": "/components",
+        "archive-dir": "../dist",
+        "archive-format": "tar.gz",
+        "optimize-autoloader": true,
+        "process-timeout": 600,
+        "preferred-install": {
+            "mapbender/*": "source",
+            "wheregroup/*": "source"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "mnsami/composer-custom-directory-installer": true,
+            "symfony/runtime": true,
+            "symfony/flex": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "public",
+        "public-dir": "public",
+        "ATTENTION": "Symlinks creating under MS Windows works only if composer runs with admin permissions",
+        "symfony-assets-install": "symlink",
+        "installer-paths":{
+            "mapbender/": ["mapbender/mapbender"],
+            "public/components/datatables/": ["datatables/datatables"]
+        },
+        "symfony": {
+            "allow-contrib": true,
+            "require": "6.4.*"
+        }
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "proj4js/proj4js",
+                "version": "2.4.3",
+                "type": "component",
+                "dist": {
+                    "url": "https://github.com/proj4js/proj4js/archive/2.4.3.zip",
+                    "type": "zip"
+                },
+                "extra": {
+                    "component": {
+                        "files": [
+                            "dist/*.js"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery-ui",
+                "version": "1.13.2",
+                "source": {
+                    "url": "https://github.com/jquery/jquery-ui",
+                    "type": "git",
+                    "reference": "1.13.2"
+                }
+            }
+        }
+    ]
+}

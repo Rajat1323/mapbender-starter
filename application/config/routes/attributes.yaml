@@ -1,0 +1,34 @@
+mapbender_corebundle:
+    resource:
+      path: "@MapbenderCoreBundle/Controller/"
+      namespace: \Mapbender\CoreBundle\Controller
+    type: attribute
+
+mapbender_managerbundle:
+    resource:
+      path: "@MapbenderManagerBundle/Controller/"
+      namespace: \Mapbender\ManagerBundle\Controller
+    type: attribute
+
+fom_userbundle:
+    resource:
+      path: "@FOMUserBundle/Controller/"
+      namespace: \FOM\UserBundle\Controller
+    type: attribute
+
+ows_corebundle:
+    resource:
+      path: "@OwsProxy3CoreBundle/Controller/"
+      namespace: \OwsProxy3\CoreBundle\Controller
+    prefix: "/owsproxy"
+    type: attribute
+
+mapbender_apibundle:
+  resource:
+    path: "@MapbenderApiBundle/Controller/"
+    namespace: \Mapbender\ApiBundle\Controller
+  type: attribute
+
+api_login_check:
+    path: /api/login_check
+    methods: [POST]
